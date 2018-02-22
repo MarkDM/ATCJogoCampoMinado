@@ -275,6 +275,7 @@ public class CampoMinado extends javax.swing.JFrame {
 
     private void perdeu() {
         JOptionPane.showMessageDialog(null, "Você perdeu");
+        this.ganho = false;
         setup();
         return;
     }
