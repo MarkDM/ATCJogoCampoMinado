@@ -15,6 +15,7 @@ import javax.swing.JButton;
 public class BotaoJogo extends JButton {
 
     private String tipoBotao;
+    private int nivelBotao;
 
     public String getTipoBotao() {
         return tipoBotao;
@@ -22,6 +23,22 @@ public class BotaoJogo extends JButton {
 
     public void setTipoBotao(String tipoBotao) {
         this.tipoBotao = tipoBotao;
+    }
+
+    public int getNivelBotao() {
+        return nivelBotao;
+    }
+
+    public void setNivelBotao(int nivelBotao) {
+        this.nivelBotao = nivelBotao;
+    }
+
+    public void liberar() {
+        this.setEnabled(true);
+    }
+
+    public void bloquear() {
+        this.setEnabled(false);
     }
 
 }
