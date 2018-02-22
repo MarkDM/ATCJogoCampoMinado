@@ -33,29 +33,29 @@ public class CampoMinado {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-
-        List<BotaoJogo> btnList = new ArrayList<BotaoJogo>();
-
-        valores[0] = "BOMBA";
-        valores[1] = "SETA";
-        valores[2] = "BOMBA";
-        valores[3] = "INTERROGAÇÃO";
-
-        JFrame tela = new JFrame();
-        //painel.setLocation(10, 5);
-        //painel.setSize(550, 100);
-
-        tela.setLayout(new GridLayout(4, 1));
-        tela.setSize(600, 400);
-
-        tela.add(gerarNivel());
-        tela.add(gerarNivel());
-        tela.add(gerarNivel());
-        tela.add(gerarNivel());
-        tela.setVisible(true);
-
-    }
+//    public static void main(String[] args) {
+//
+//        List<BotaoJogo> btnList = new ArrayList<BotaoJogo>();
+//
+//        valores[0] = "BOMBA";
+//        valores[1] = "SETA";
+//        valores[2] = "BOMBA";
+//        valores[3] = "INTERROGAÇÃO";
+//
+//        JFrame tela = new JFrame();
+//        //painel.setLocation(10, 5);
+//        //painel.setSize(550, 100);
+//
+//        tela.setLayout(new GridLayout(4, 1));
+//        tela.setSize(600, 400);
+//
+//        tela.add(gerarNivel());
+//        tela.add(gerarNivel());
+//        tela.add(gerarNivel());
+//        tela.add(gerarNivel());
+//        tela.setVisible(true);
+//
+//    }
 
     public static JPanel gerarNivel() {
 
