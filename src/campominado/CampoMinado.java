@@ -5,14 +5,21 @@
  */
 package campominado;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -41,7 +48,7 @@ public class CampoMinado extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblQtdVidas = new javax.swing.JLabel();
-        btnReset = new javax.swing.JButton();
+        lblStatusJogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,13 +87,6 @@ public class CampoMinado extends javax.swing.JFrame {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        btnReset.setText("Reset");
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,27 +97,23 @@ public class CampoMinado extends javax.swing.JFrame {
                     .addComponent(paneJogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 345, Short.MAX_VALUE)
-                        .addComponent(btnReset)
-                        .addGap(46, 46, 46))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                        .addComponent(lblStatusJogo)
+                        .addGap(135, 135, 135))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(paneJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReset))
+                    .addComponent(lblStatusJogo))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        setup();
-    }//GEN-LAST:event_btnResetActionPerformed
 
     public static void main(String args[]) {
 
@@ -157,7 +153,7 @@ public class CampoMinado extends javax.swing.JFrame {
     }
 
     void setup() {
-        qtdVidas = 10000000;
+        qtdVidas = 1;
         nivelAtual = 1;
         listaBotoes.clear();
         lblQtdVidas.setText(String.valueOf(qtdVidas));
@@ -189,7 +185,8 @@ public class CampoMinado extends javax.swing.JFrame {
             btn.setNivelBotao(nivelBotao);
             btn.setSize(20, 10);
             //btn.setLocation(x += 15, y += 15);
-            btn.setText("Click NV: " + btn.getNivelBotao());
+            //btn.setText("Click NV: " + btn.getNivelBotao());
+            btn.setImage("/img/bat.png");
             btn.setMargin(new Insets(0, 10, 0, 20));
             btn.bloquear();
             listaBotoes.add(btn);
@@ -216,11 +213,15 @@ public class CampoMinado extends javax.swing.JFrame {
     }
 
     public void processarJogada(BotaoJogo btn) {
-        btn.bloquear();
 
+//        if (!btn.getIsClicable()) {
+//            return;
+//        }
+//        
         switch (btn.getTipoBotao()) {
             case "BOMBA":
-                btn.setText("BOMBA");
+                //btn.setText("BOMBA");
+                btn.setImage("/img/bomb.png");
                 qtdVidas--;
                 lblQtdVidas.setText(String.valueOf(qtdVidas));
                 if (qtdVidas == 0) {
@@ -231,10 +232,10 @@ public class CampoMinado extends javax.swing.JFrame {
             case "SETA":
 
                 btn.setText("SETA");
+                btn.setImage("/img/level_up.png");
 
                 if (nivelAtual == 4) {
                     ganhou();
-
                 }
 
                 if (!ganho) {
@@ -248,12 +249,15 @@ public class CampoMinado extends javax.swing.JFrame {
                 break;
             case "VIDA":
                 btn.setText("VIDA");
+                btn.setImage("/img/vida.png");
                 qtdVidas++;
                 lblQtdVidas.setText(String.valueOf(qtdVidas));
                 break;
             default:
                 break;
         }
+
+        btn.bloquear();
     }
 
     public void liberarNivel(int nivel) {
@@ -266,24 +270,27 @@ public class CampoMinado extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblQtdVidas;
+    private javax.swing.JLabel lblStatusJogo;
     private javax.swing.JPanel paneJogo;
     // End of variables declaration//GEN-END:variables
 
     private void perdeu() {
         JOptionPane.showMessageDialog(null, "Você perdeu");
-        this.ganho = false;
+        //this.ganho = false;
+        //lblStatusJogo.setBackground(Color.red);
+        //lblStatusJogo.setText("Você perdeu");
         setup();
-        return;
     }
 
     private void ganhou() {
         JOptionPane.showMessageDialog(null, "Você ganhou");
+        lblStatusJogo.setBackground(Color.green);
+//        new JDialog().setVisible(true);
+//        lblStatusJogo.setText("Você ganhou");
         this.ganho = true;
         setup();
-        return;
     }
 }
