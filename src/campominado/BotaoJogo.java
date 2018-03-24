@@ -44,15 +44,15 @@ public class BotaoJogo extends JButton {
     }
 
     public void liberar() {
-        this.setEnabled(true);
-        //setIsClicable(true);
-        //this.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 51), new java.awt.Color(204, 204, 0)));
+        //this.setEnabled(true);
+        setIsClicable(true);
+        this.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 0, 0), new java.awt.Color(255, 0, 0)));
     }
 
     public void bloquear() {
-        //setIsClicable(false);
-        this.setEnabled(false);
-        //this.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        setIsClicable(false);
+        //this.setEnabled(false);
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
     }
 
     public void setImage(String filePath) {

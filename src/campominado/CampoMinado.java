@@ -29,7 +29,9 @@ import javax.swing.JPanel;
  */
 public class CampoMinado extends javax.swing.JFrame {
 
-    private String[] valores = new String[4];
+    private int qtdBotoesLinha = 8;
+    private int totNiveis = 8;
+    private String[] valores = new String[qtdBotoesLinha];
     private List<BotaoJogo> listaBotoes;
     private int nivelAtual;
     private int qtdVidas;
@@ -60,7 +62,7 @@ public class CampoMinado extends javax.swing.JFrame {
         );
         paneJogoLayout.setVerticalGroup(
             paneJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 492, Short.MAX_VALUE)
         );
 
         jLabel1.setText("Vidas:");
@@ -97,7 +99,7 @@ public class CampoMinado extends javax.swing.JFrame {
                     .addComponent(paneJogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 554, Short.MAX_VALUE)
                         .addComponent(lblStatusJogo)
                         .addGap(135, 135, 135))))
         );
@@ -144,7 +146,7 @@ public class CampoMinado extends javax.swing.JFrame {
             public void run() {
 
                 CampoMinado tela = new CampoMinado();
-                tela.paneJogo.setLayout(new GridLayout(4, 4));
+                tela.paneJogo.setLayout(new GridLayout(8, 8));
                 tela.setup();
                 tela.setVisible(true);
                 //new TelaTeste().setVisible(true);
@@ -158,27 +160,35 @@ public class CampoMinado extends javax.swing.JFrame {
         listaBotoes.clear();
         lblQtdVidas.setText(String.valueOf(qtdVidas));
         paneJogo.removeAll();
-        paneJogo.add(gerarNivel(4));
-        paneJogo.add(gerarNivel(3));
-        paneJogo.add(gerarNivel(2));
-        paneJogo.add(gerarNivel(1));
 
+        for (int i = qtdBotoesLinha; i > 0; i--) {
+            paneJogo.add(gerarNivel(i));
+        }
+
+//        paneJogo.add(gerarNivel(4));
+//        paneJogo.add(gerarNivel(3));
+//        paneJogo.add(gerarNivel(2));
+//        paneJogo.add(gerarNivel(1));
         liberarNivel(nivelAtual);
     }
 
     public JPanel gerarNivel(int nivelBotao) {
 
         valores[0] = "BOMBA";
-        valores[1] = "SETA";
+        valores[1] = "BOMBA";
         valores[2] = "BOMBA";
-        valores[3] = "VIDA";
+        valores[3] = "BOMBA";
+        valores[4] = "VIDA";
+        valores[5] = "VIDA";
+        valores[6] = "VIDA";
+        valores[7] = "SETA";
 
         JPanel painel = new JPanel(new GridLayout());
         painel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         Collections.shuffle(Arrays.asList(valores));
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < qtdBotoesLinha; i++) {
 
             BotaoJogo btn = new BotaoJogo();
             btn.setTipoBotao(valores[i]);
@@ -214,10 +224,10 @@ public class CampoMinado extends javax.swing.JFrame {
 
     public void processarJogada(BotaoJogo btn) {
 
-//        if (!btn.getIsClicable()) {
-//            return;
-//        }
-//        
+        if (!btn.getIsClicable()) {
+            return;
+        }
+
         switch (btn.getTipoBotao()) {
             case "BOMBA":
                 //btn.setText("BOMBA");
@@ -234,7 +244,7 @@ public class CampoMinado extends javax.swing.JFrame {
                 btn.setText("SETA");
                 btn.setImage("/img/level_up.png");
 
-                if (nivelAtual == 4) {
+                if (nivelAtual == totNiveis) {
                     ganhou();
                 }
 
@@ -250,6 +260,19 @@ public class CampoMinado extends javax.swing.JFrame {
             case "VIDA":
                 btn.setText("VIDA");
                 btn.setImage("/img/vida.png");
+
+                if (nivelAtual == totNiveis) {
+                    ganhou();
+                }
+
+                if (!ganho) {
+                    bloquearNivel(nivelAtual);
+                    nivelAtual++;
+                    liberarNivel(nivelAtual);
+                } else {
+                    this.ganho = false;
+                }
+
                 qtdVidas++;
                 lblQtdVidas.setText(String.valueOf(qtdVidas));
                 break;
