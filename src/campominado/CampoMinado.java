@@ -62,7 +62,7 @@ public class CampoMinado extends javax.swing.JFrame {
         );
         paneJogoLayout.setVerticalGroup(
             paneJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 492, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
 
         jLabel1.setText("Vidas:");
@@ -99,7 +99,7 @@ public class CampoMinado extends javax.swing.JFrame {
                     .addComponent(paneJogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 554, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 700, Short.MAX_VALUE)
                         .addComponent(lblStatusJogo)
                         .addGap(135, 135, 135))))
         );
@@ -178,7 +178,7 @@ public class CampoMinado extends javax.swing.JFrame {
         valores[1] = "BOMBA";
         valores[2] = "BOMBA";
         valores[3] = "BOMBA";
-        valores[4] = "VIDA";
+        valores[4] = "BOMBA";
         valores[5] = "VIDA";
         valores[6] = "VIDA";
         valores[7] = "SETA";
