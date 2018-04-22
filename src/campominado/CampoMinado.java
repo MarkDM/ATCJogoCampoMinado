@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -202,9 +203,9 @@ public class CampoMinado extends javax.swing.JFrame {
             listaBotoes.add(btn);
             painel.add(btn);
 
-            btn.addActionListener(new java.awt.event.ActionListener() {
+            btn.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(ActionEvent ActionEvent) {
                     processarJogada(btn);
                 }
             });
@@ -215,11 +216,9 @@ public class CampoMinado extends javax.swing.JFrame {
     }
 
     public void bloquearNivel(int nivel) {
-        for (BotaoJogo btn : listaBotoes) {
-            if (btn.getNivelBotao() == nivel) {
-                btn.bloquear();
-            }
-        }
+        listaBotoes.stream().filter((btn) -> (btn.getNivelBotao() == nivel)).forEachOrdered((btn) -> {
+            btn.bloquear();
+        });
     }
 
     public void processarJogada(BotaoJogo btn) {
@@ -284,11 +283,9 @@ public class CampoMinado extends javax.swing.JFrame {
     }
 
     public void liberarNivel(int nivel) {
-        for (BotaoJogo btn : listaBotoes) {
-            if (btn.getNivelBotao() == nivel) {
-                btn.liberar();
-            }
-        }
+        listaBotoes.stream().filter((btn) -> (btn.getNivelBotao() == nivel)).forEachOrdered((btn) -> {
+            btn.liberar();
+        });
     }
 
 
